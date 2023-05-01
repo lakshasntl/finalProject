@@ -6,6 +6,8 @@ import OS
 
 createNotif class:
     creates notification object for every new notification
+    Notificiation object will contain date and time
+    Returns a List
     
 addTitle class:
     adds title to the current notifcation object
@@ -31,3 +33,28 @@ main function:
     calls icon Class to add iconds to each notifcation object
     calls sound Class to add sound to each notification object
     """
+from datetime import datetime
+class CreateNoti:
+    def __init__(self, message, date = None) -> None:
+        self.message = message
+        self.date = date or datetime.now()
+        pass
+
+
+class Notification:
+    def __init__(self) -> None:
+        self.noti = []
+
+
+    def create_notification(self,message):
+       noti = CreateNoti(message)
+       self.noti.append(noti)
+
+
+class AddTitle:
+    def __init__(self,notification,title) -> None:
+        self.notification = notification
+        self.title = title
+    
+    def add_title(self):
+        self.notification.title = self.title
