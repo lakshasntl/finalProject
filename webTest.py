@@ -30,20 +30,14 @@ def html_to_alert_list(html):
     
     print("Parsing all alerts...")
     # find all the divs that contain alert information
-    alert_divs = soup.find_all("div", {"class": "alert-body"})
+    alert_divs = soup.find_all("div", {"class": "feed-item-body"})
     
     # iterate through each div to extract the necessary information
     for alert_div in alert_divs:
         # extract the title from the div
-        title = alert_div.find("h4").text.strip()
+        title = alert_div.find("h2").text.strip()
         
-        # add the alert information to the list of alerts
-        alerts.append({
-            'Title': title
-        })
-    
     # return the list of alerts
     return alerts
 
 alert_list = html_to_alert_list(alert_list_html)
-print(alert_list)
