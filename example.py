@@ -58,3 +58,44 @@ class AddTitle:
     
     def add_title(self):
         self.notification.title = self.title
+        
+class classify:
+    def __init__(self, notification, emergency, advisory, safety):
+        self.notification = notification
+        self.emergency = emergency
+        self.advisory = advisory
+        self.safety = safety
+        
+    def alert_types(self):
+        self.notification.emergency = self.emergency
+        self.notification.advisory = self.advisory
+        self.notification.safety = self.safety
+        
+        return self.emergency, self.advisory, self.safety
+
+class icon:
+    def __init__(self,notification):
+        self.notification = notification
+        noti = classify(notification)
+        
+    def add_icon(self, emergency, advisory, safety):
+        if self.noti == emergency:
+            return emergency
+        elif self.noti == advisory:
+            return advisory
+        else:
+            return safety
+
+class sound:
+    def __init__(self,notification):
+        self.notification = notification
+        noti = icon(notification)
+        
+    def add_sound(self, emergency, advisory, safety):
+        if self.noti == emergency:
+            return emergency
+        elif self.noti == advisory:
+            return advisory
+        else:
+            return safety
+    pass
