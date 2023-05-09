@@ -1,17 +1,20 @@
-# libraries for getting/retreieving data from the Web
-import urllib.request, urllib.parse, urllib.error
-# library for parsing the data we get from the Web
+import urllib.request
 import bs4
-import json
-import pandas as pd
+from datetime import datetime, timezone
 
-# url we want (it's like a file path!)
-alert_list_url = "https://alert.umd.edu/alerts"
-
-# make a request to the server computer, and store the response data packet in a variable
-response = urllib.request.urlopen(alert_list_url)
-alert_list_html = response.read()
-alert_list_html
+def get_alert_pages():
+    """
+    Generator that yields each page of alerts
+    """
+    page_num = 1
+    while page_num < 4:
+        url = f"https://alert.umd.edu/alerts?page={page_num}"
+        response = urllib.request.urlopen(url)
+        html = response.read()
+        if not html:
+            break
+        yield html
+        page_num += 1
 
 def html_to_alert_list(html):
     """
@@ -32,12 +35,20 @@ def html_to_alert_list(html):
     # find all the divs that contain alert information
     alert_divs = soup.find_all("div", {"class": "feed-item-body"})
     
+    
     # iterate through each div to extract the necessary information
     for alert_div in alert_divs:
         # extract the title from the div
         title = alert_div.find("h2").text.strip()
-        
+        date = alert_div.find("div", {"class": "feed-item-date"})
+        description = alert_div.find("div", {"class": "feed-item-description"})
+    
+        alerts.append(title)
+        alerts.append(date)
+        alerts.append(description)
     # return the list of alerts
     return alerts
 
-alert_list = html_to_alert_list(alert_list_html)
+# iterate over each page of alerts and print the titles
+for html in get_alert_pages():
+    print(html_to_alert_list(html))
