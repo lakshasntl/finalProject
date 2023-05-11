@@ -64,14 +64,14 @@ def html_to_alert_list(html):
     Returns: alerts: list of alert entries, which can then be printed
     """
     
-    print("Initializing html parser")
+    #print("Initializing html parser")
     # init parser
     soup = bs4.BeautifulSoup(html, 'html.parser')
     
     # to hold the alert data
     alerts = []
     
-    print("Parsing all alerts...")
+    #print("Parsing all alerts...")
     # find all the divs that contain alert information
     alert_divs = soup.find_all("div", {"class": "feed-item-body"})
     
@@ -117,18 +117,16 @@ class AddTitle:
         self.notification.title = self.title
         
 class classify:
-    def __init__(self, notification, emergency, advisory, safety):
+    def __init__(self, notification):
         self.notification = notification
-        self.emergency = emergency
-        self.advisory = advisory
-        self.safety = safety
+        #self.emergency = emergency
+        #self.advisory = advisory
+        #self.safety = safety
         
-    def alert_types(self):
+    def alert_types(self, notification):
         self.notification.emergency = self.emergency
         self.notification.advisory = self.advisory
         self.notification.safety = self.safety
-        
-        return self.emergency, self.advisory, self.safety
 
 class icon:
     def __init__(self,notification):
@@ -157,5 +155,13 @@ class sound:
             return safety
     pass
 
-for html in get_alert_pages():
-    print(html_to_alert_list(html))
+if __name__ == "__main__":
+    for html in get_alert_pages():
+        alerts = html_to_alert_list(html)
+        for alert in alerts:
+            createNotiObj = CreateNoti(alert)
+            AddTitle(alert, alert['title'])
+            classify(alert)
+            icon(alert)
+            sound(alert)
+            
