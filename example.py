@@ -30,15 +30,66 @@ main function:
     calls createNotif class to create new objects for every new notification
     calls addTitle class to title the new notifcation object
     calls addMessage class to add message to the new notification object
-    calls icon Class to add iconds to each notifcation object
+    calls icon Class to add icons to each notifcation object
     calls sound Class to add sound to each notification object
     """
+
+import urllib.request
+from bs4 import BeautifulSoup
+from datetime import datetime, timezone
+
+def get_alert_pages():
+    """
+    Generator that yields each page of alerts
+    """
+    page_num = 1
+    while page_num < 4:
+        url = f"https://alert.umd.edu/alerts?page={page_num}"
+        response = urllib.request.urlopen(url)
+        html = response.read()
+        if not html:
+            break
+        yield html
+        page_num += 1
+
+def html_to_alert_list(html):
+    """
+    Get html page and parse out alert info and dump into list of alert entries
+    Params:
+    - html (str) - a str representation of an html page that lists alerts from UMD Alert page
+    Returns: alerts: list of alert entries, which can then be printed
+    """
+
+    # init parser
+    soup = BeautifulSoup(html, 'html.parser')
+
+    # to hold the alert data
+    alerts = []
+
+    # find all the divs that contain alert information
+    alert_divs = soup.find_all("div", {"class": "feed-item-body"})
+
+    # iterate through each div to extract the necessary information
+    for alert_div in alert_divs:
+        # extract the title from the div
+        title = alert_div.find("h2").text.strip()
+        date = alert_div.find("div", {"class": "feed-item-date"}).text.strip()
+        description = alert_div.find("div", {"class": "feed-item-description"}).text.strip()
+
+        alerts.append(title)
+        alerts.append(date)
+        alerts.append(description)
+
+    # return the list of alerts
+    return alerts
+
+
 from datetime import datetime
+
 class CreateNoti:
     def __init__(self, message, date = None) -> None:
         self.message = message
         self.date = date or datetime.now()
-        pass
 
 
 class Notification:
@@ -59,24 +110,25 @@ class AddTitle:
     def add_title(self):
         self.notification.title = self.title
         
-class classify:
+class Classify:
     def __init__(self, notification, emergency, advisory, safety):
         self.notification = notification
         self.emergency = emergency
         self.advisory = advisory
         self.safety = safety
+
         
     def alert_types(self):
         self.notification.emergency = self.emergency
         self.notification.advisory = self.advisory
         self.notification.safety = self.safety
-        
+        #Use .contain(...) an if statemenet to find, returns true or false
         return self.emergency, self.advisory, self.safety
 
-class icon:
+class Icon:
     def __init__(self,notification):
         self.notification = notification
-        noti = classify(notification)
+        noti = Classify(notification)
         
     def add_icon(self, emergency, advisory, safety):
         if self.noti == emergency:
@@ -86,10 +138,10 @@ class icon:
         else:
             return safety
 
-class sound:
+class Sound:
     def __init__(self,notification):
         self.notification = notification
-        noti = icon(notification)
+        noti = Icon(notification)
         
     def add_sound(self, emergency, advisory, safety):
         if self.noti == emergency:
@@ -99,3 +151,14 @@ class sound:
         else:
             return safety
     pass
+
+if __name__ == "__main__":
+    for html in get_alert_pages():
+        alerts = html_to_alert_list(html)
+        for alert in alerts:
+            createNotiObj = CreateNoti(alert)
+            print(createNotiObj.message)
+            AddTitle(alert, alert['title'])
+            Classify(alert)
+            Icon(alert)
+            Sound(alert)
