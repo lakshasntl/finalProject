@@ -2,6 +2,10 @@ import urllib.request
 import bs4
 from datetime import datetime, timezone
 
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+
+
 def get_alert_pages():
     """
     Generator that yields each page of alerts
@@ -40,15 +44,20 @@ def html_to_alert_list(html):
     for alert_div in alert_divs:
         # extract the title from the div
         title = alert_div.find("h2").text.strip()
-        date = alert_div.find("div", {"class": "feed-item-date"})
+        date = alert_div.find("div", {"class": "feed-item-date"}).text.strip()
+        
         description = alert_div.find("div", {"class": "feed-item-description"})
-    
-        alerts.append(title)
-        alerts.append(date)
-        alerts.append(description)
+        
+        local = {'title': title, 'date': date, 'description': description}
+        
+        alerts.append(local)
     # return the list of alerts
     return alerts
 
 # iterate over each page of alerts and print the titles
 for html in get_alert_pages():
-    print(html_to_alert_list(html))
+    alerts = html_to_alert_list(html)
+    for alert in alerts:
+
+        print(alert)
+        print("---------------")
