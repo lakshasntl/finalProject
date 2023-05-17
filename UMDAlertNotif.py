@@ -106,6 +106,22 @@ class Classify():
             return 'community notice'
         else:
             return 'unknown'
+class TestClassify(unittest.TestCase):
+    def test_alertType_community_alert(self):
+        alert = {'title': 'UMD COMMUNITY ALERT', 'date': '2023-05-17', 'description': 'Community alert description'}
+        classifyer = Classify(alert)
+        self.assertEqual(classifyer.alertType(), 'community alert')
+        
+    def test_alertType_community_notice(self):
+        alert = {'title': 'UMD Community Notice', 'date': '2023-05-17', 'description': 'Community notice description'}
+        classifyer = Classify(alert)
+        self.assertEqual(classifyer.alertType(), 'community notice')
+
+    def test_alertType_unknown(self):
+        alert = {'title': 'Unknown Alert', 'date': '2023-05-17', 'description': 'Unknown alert description'}
+        classifyer = Classify(alert)
+        self.assertEqual(classifyer.alertType(), 'unknown')
+    
 
 class Icon():
     def __init__(self):
