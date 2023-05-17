@@ -34,13 +34,13 @@ main function:
     calls sound Class to add sound to each notification object
     """
 
+import pync
 import urllib.request
 import bs4
 from datetime import datetime, timezone
 
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
-
 
 def get_alert_pages():
     """
@@ -90,61 +90,110 @@ def html_to_alert_list(html):
     # return the list of alerts
     return alerts
 
-from datetime import datetime
-
-class CreateNoti:
-    def __init__(self, message, date = None) -> None:
-        self.message = message
-        self.date = date or datetime.now()
-
-
-class Notification:
-    def __init__(self) -> None:
-        self.noti = []
-
-
-    def create_notification(self,message):
-       noti = CreateNoti(message)
-       self.noti.append(noti)
-
-
-class AddTitle:
-    def __init__(self,notification,title) -> None:
-        self.notification = notification
-        self.title = title
-    
-    def add_title(self):
-        self.notification.title = self.title
+class Classify():
+    def __init__(self, alert):
+        self.alert = alert
         
-class classify:
-    def __init__(self, notification):
-        self.notification = notification
+    def alertType(self):
+        if 'UMD COMMUNITY ALERT' in self.alert['title']:
+            return 'community alert'
+        elif 'UMD ALERT Test' in self.alert['title']:
+            return 'alert test'
+        elif 'UMD Advisory' in self.alert['title']:
+            return 'advisory'
+        elif 'UMD Safety Notice' in self.alert['title']:
+            return 'safety notice'
+        elif 'UMD Community Notice' in self.alert['title']:
+            return 'community notice'
+        else:
+            return 'unknown'
+
+class Icon():
+    def __init__(self):
+        pass
+        
+    def iconPath(self, classification):
+        if classification == 'UMD Advisory':
+            icon = '/Users/lakshasenthilkumar/INST326/326finalUMDAdvisory.png'
+        elif classification == 'UMD COMMUNITY ALERT':
+            icon = '/Users/lakshasenthilkumar/INST326/326finalUMDCommunityAlert.png'
+        elif classification == 'UMD ALERT Test':
+            icon = '/Users/lakshasenthilkumar/INST326/326FinalAlertTest.png'
+        elif classification == "UMD Safety Notice":
+            icon = '/Users/lakshasenthilkumar/INST326/326finalUMDSafetyNotice.png'
+        elif classification == 'UMD Community Notice':
+            icon = '/Users/lakshasenthilkumar/INST326/326finalUMDCommunityNotice.png'
+        else:
+            return None
+        
+        return icon
+
+if __name__ == "__main__":
+    icon = Icon()
+    for html in get_alert_pages():
+        alerts = html_to_alert_list(html)
+        for alert in alerts:
+            classification = Classify(alert).alertType()
+            icon_path = icon.iconPath(classification)
+            print(alert['title'])
+            pync.notify(title=alert['title'], message=alert['description'], subtitle=alert['date'], appIcon=icon_path)
+
+
+# from datetime import datetime
+
+# class CreateNoti:
+    # def __init__(self, message, date = None) -> None:
+        # self.message = message
+        # self.date = date or datetime.now()
+
+
+# class Notification:
+    # def __init__(self) -> None:
+        # self.noti = []
+
+
+    # def create_notification(self,message):
+    #    noti = CreateNoti(message)
+    #    self.noti.append(noti)
+
+
+# class AddTitle:
+    # def __init__(self,notification,title) -> None:
+        # self.notification = notification
+        # self.title = title
+    
+    # def add_title(self):
+        # self.notification.title = self.title
+        
+# class Classify:
+#     def __init__(self, notification):
+#        self.notification = notification
         #self.emergency = emergency
         #self.advisory = advisory
         #self.safety = safety
         
-    def alert_types(self, notification):
-        self.notification.emergency = self.emergency
-        self.notification.advisory = self.advisory
-        self.notification.safety = self.safety
+#    def alert_types(self, notification):
+#        self.notification.emergency = self.emergency
+#        self.notification.advisory = self.advisory
+#        self.notification.safety = self.safety
 
-class icon:
+#class Icon:
+#    def __init__(self,notification):
+#        self.notification = notification
+#        noti = Classify(notification)
+#        
+#    def add_icon(self, emergency, advisory, safety):
+        # if self.noti == emergency:
+            # return emergency
+        # elif self.noti == advisory:
+            # return advisory
+        # else:
+            # return safety
+
+class Sound:
     def __init__(self,notification):
         self.notification = notification
-        noti = classify(notification)
-        
-    def add_icon(self, emergency, advisory, safety):
-        if self.noti == emergency:
-            return emergency
-        elif self.noti == advisory:
-            return advisory
-        else:
-            return safety
-
-class sound:
-    def __init__(self,notification):
-        self.notification = notification
-        noti = icon(notification)
+        noti = Icon(notification)
         
     def add_sound(self, emergency, advisory, safety):
         if self.noti == emergency:
@@ -155,13 +204,15 @@ class sound:
             return safety
     pass
 
-if __name__ == "__main__":
-    for html in get_alert_pages():
-        alerts = html_to_alert_list(html)
-        for alert in alerts:
-            createNotiObj = CreateNoti(alert)
-            AddTitle(alert, alert['title'])
-            classify(alert)
-            icon(alert)
-            sound(alert)
+# if __name__ == "__main__":
+    # for html in get_alert_pages():
+        # alerts = html_to_alert_list(html)
+        # for alert in alerts:
+            # print(alert)
             
+            # createNotiObj = CreateNoti(alert)
+            # print(createNotiObj)
+            # AddTitle(alert, alert['title'])
+            # Classify(alert)
+            # Icon(alert)
+            # Sound(alert)
