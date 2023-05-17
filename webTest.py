@@ -20,6 +20,7 @@ def get_alert_pages():
         yield html
         page_num += 1
 
+
 def html_to_alert_list(html):
     """
     Get html page and parse out alert info and dump into list of alert entries
@@ -39,25 +40,25 @@ def html_to_alert_list(html):
     # find all the divs that contain alert information
     alert_divs = soup.find_all("div", {"class": "feed-item-body"})
     
-    
     # iterate through each div to extract the necessary information
     for alert_div in alert_divs:
         # extract the title from the div
         title = alert_div.find("h2").text.strip()
         date = alert_div.find("div", {"class": "feed-item-date"}).text.strip()
+        description = alert_div.find("div", {"class": "feed-item-description"}).text.strip()
         
-        description = alert_div.find("div", {"class": "feed-item-description"})
+        # create a dictionary to hold the alert information
+        alert_info = {'title': title, 'date': date, 'description': description}
         
-        local = {'title': title, 'date': date, 'description': description}
-        
-        alerts.append(local)
+        alerts.append(alert_info)
+    
     # return the list of alerts
     return alerts
+
 
 # iterate over each page of alerts and print the titles
 for html in get_alert_pages():
     alerts = html_to_alert_list(html)
     for alert in alerts:
-
         print(alert)
         print("---------------")
