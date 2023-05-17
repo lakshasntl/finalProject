@@ -1,5 +1,3 @@
-"""this is an example"""
-
 """
 import notify module 
 import OS
@@ -33,6 +31,7 @@ main function:
     calls icon Class to add icons to each notifcation object
     calls sound Class to add sound to each notification object
     """
+
 
 import urllib.request
 from bs4 import BeautifulSoup
