@@ -38,6 +38,7 @@ import pync
 import urllib.request
 import bs4
 from datetime import datetime, timezone
+from playsound import playsound
 
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
