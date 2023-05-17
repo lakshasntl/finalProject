@@ -176,7 +176,7 @@ if __name__ == "__main__":
             elif classification == 'community notice':
                 sound.play_community_notice_sound()
 
-
+#notify
  
 # if __name__ == "__main__":
     # for html in get_alert_pages():
@@ -185,7 +185,7 @@ if __name__ == "__main__":
             # print(alert)
             
             # createNotiObj = CreateNoti(alert)
-            # print(createNotiObj)
+            # print(ceateNotiObj)
             # AddTitle(alert, alert['title'])
             # Classify(alert)
             # Icon(alert)

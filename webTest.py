@@ -58,6 +58,4 @@ def html_to_alert_list(html):
 for html in get_alert_pages():
     alerts = html_to_alert_list(html)
     for alert in alerts:
-
-        print(alert)
-        print("---------------")
+        print(alert['title'])
