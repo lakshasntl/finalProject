@@ -164,6 +164,17 @@ if __name__ == "__main__":
             icon_path = icon.iconPath(classification)
             print(alert['title'])
             pync.notify(title=alert['title'], message=alert['description'], subtitle=alert['date'], appIcon=icon_path)
+            
+            if classification == 'advisory':
+                sound.play_advisory_sound()
+            elif classification == 'community alert':
+                sound.play_community_alert_sound()
+            elif classification == 'alert test':
+                sound.play_alert_test_sound()
+            elif classification == 'safety notice':
+                sound.play_safety_notice_sound()
+            elif classification == 'community notice':
+                sound.play_community_notice_sound()
 
 
 
