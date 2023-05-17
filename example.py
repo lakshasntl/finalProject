@@ -85,12 +85,13 @@ def html_to_alert_list(html):
 
 from datetime import datetime
 
+# Class to create notification objects for every new notification
 class CreateNoti:
     def __init__(self, message, date = None) -> None:
         self.message = message
         self.date = date or datetime.now()
 
-
+# Class to store the notification objects
 class Notification:
     def __init__(self) -> None:
         self.noti = []
@@ -100,7 +101,7 @@ class Notification:
        noti = CreateNoti(message)
        self.noti.append(noti)
 
-
+# Class to add a title to a notification
 class AddTitle:
     def __init__(self,notification,title) -> None:
         self.notification = notification
@@ -109,6 +110,7 @@ class AddTitle:
     def add_title(self):
         self.notification.title = self.title
         
+# Class to classify notifications into different types of alerts
 class Classify:
     def __init__(self, notification, emergency, advisory, safety):
         self.notification = notification
@@ -123,7 +125,8 @@ class Classify:
         self.notification.safety = self.safety
         #Use .contain(...) an if statemenet to find, returns true or false
         return self.emergency, self.advisory, self.safety
-
+    
+# Class to add icons to notifications based on their classification
 class Icon:
     def __init__(self,notification):
         self.notification = notification
@@ -136,7 +139,8 @@ class Icon:
             return advisory
         else:
             return safety
-
+        
+# Class to add sounds to notifications based on their classification
 class Sound:
     def __init__(self,notification):
         self.notification = notification
