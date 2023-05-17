@@ -127,6 +127,32 @@ class Icon():
             return None
         
         return icon
+class Sound():
+    def __init__(self) -> None:
+        self.advisory_sound = '/Users/jamalibrahim/Documents/GitHub/finalProject/Advisory.mp3'
+        self.community_alert_sound = '/Users/jamalibrahim/Documents/GitHub/finalProject/CommunitySound.mp3'
+        self.alert_test = '/Users/jamalibrahim/Documents/GitHub/finalProject/CommunitySound.mp3'
+        self.safety_notice = '/Users/jamalibrahim/Documents/GitHub/finalProject/alertSound.mp3'
+        self.community_notice = '/Users/jamalibrahim/Documents/GitHub/finalProject/CommunityNotice.mp3'
+    
+    def play_sound(self, sound_path):
+        # Play the sound associated with the given sound path
+        playsound(sound_path)
+
+    def play_advisory_sound(self):
+        self.play_sound(self.advisory_sound)
+
+    def play_community_alert_sound(self):
+        self.play_sound(self.community_alert_sound)
+
+    def play_alert_test_sound(self):
+        self.play_sound(self.alert_test)
+
+    def play_safety_notice_sound(self):
+        self.play_sound(self.safety_notice)
+
+    def play_community_notice_sound(self):
+        self.play_sound(self.community_notice)
 
 if __name__ == "__main__":
     icon = Icon()
@@ -139,71 +165,8 @@ if __name__ == "__main__":
             pync.notify(title=alert['title'], message=alert['description'], subtitle=alert['date'], appIcon=icon_path)
 
 
-# from datetime import datetime
 
-# class CreateNoti:
-    # def __init__(self, message, date = None) -> None:
-        # self.message = message
-        # self.date = date or datetime.now()
-
-
-# class Notification:
-    # def __init__(self) -> None:
-        # self.noti = []
-
-
-    # def create_notification(self,message):
-    #    noti = CreateNoti(message)
-    #    self.noti.append(noti)
-
-
-# class AddTitle:
-    # def __init__(self,notification,title) -> None:
-        # self.notification = notification
-        # self.title = title
-    
-    # def add_title(self):
-        # self.notification.title = self.title
-        
-# class Classify:
-#     def __init__(self, notification):
-#        self.notification = notification
-        #self.emergency = emergency
-        #self.advisory = advisory
-        #self.safety = safety
-        
-#    def alert_types(self, notification):
-#        self.notification.emergency = self.emergency
-#        self.notification.advisory = self.advisory
-#        self.notification.safety = self.safety
-
-#class Icon:
-#    def __init__(self,notification):
-#        self.notification = notification
-#        noti = Classify(notification)
-#        
-#    def add_icon(self, emergency, advisory, safety):
-        # if self.noti == emergency:
-            # return emergency
-        # elif self.noti == advisory:
-            # return advisory
-        # else:
-            # return safety
-
-class Sound:
-    def __init__(self,notification):
-        self.notification = notification
-        noti = Icon(notification)
-        
-    def add_sound(self, emergency, advisory, safety):
-        if self.noti == emergency:
-            return emergency
-        elif self.noti == advisory:
-            return advisory
-        else:
-            return safety
-    pass
-
+ 
 # if __name__ == "__main__":
     # for html in get_alert_pages():
         # alerts = html_to_alert_list(html)
