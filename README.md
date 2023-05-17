@@ -1,8 +1,9 @@
 # finalProject
 
-Our final project aims to develop an app with the students of UMD as our main users and audience. The objective of this project is to create a student-run platform that focuses on sharing real-time alerts and information related to incidents and events within the College Park community. By collecting input from College Park bystanders, our aim is to keep the community informed and alert about its surroundings to ensure their safety. Our platform will be exclusively centered on the UMD Campus and will emphasize our commitment to keeping students secure, setting us apart from other app competitors.
+The students at UMD will serve as our primary users and audience for the app we design as part of our final project. This project's goal is to develop a student-run platform that focuses on disseminating real-time alerts and information about occurrences and activities in the College Park neighborhood. By gathering feedback from onlookers in College Park, we hope to keep the neighborhood aware of its surroundings and safe. Our platform will only be focused on the UMD Campus and will highlight our dedication to protecting students' security, distinguishing us from other app rivals.
 
-The project design consists of two methods that read through the UMD Alerts Page and store the alerts into a list, separated into three sections: title, date, and description. The code is organized into six main sections:
+Two techniques are used in the project design to read the UMD Alerts Page and store the alerts in a list that is divided into the following three sections: title, date, and description. There are six major sections that make up the code:
+
 
 1. Creating the messages: This section involves parsing the HTML pages and extracting relevant information from each alert, such as the title, date, and description.
 
@@ -16,4 +17,5 @@ The project design consists of two methods that read through the UMD Alerts Page
 
 6. Adding a sound to the notification based on the type of alert: A sound is added to each notification based on its classification. The sound serves as an additional indicator or alert signal.
 
-When encountering problems during the development process, our team engages in problem-solving discussions. We hold Zoom meetings to identify the specific challenges someone is facing and then brainstorm potential solutions. If we encounter a roadblock and cannot find a suitable solution, we seek assistance from our TA for guidance. An example of this problem-solving approach is evident in the Classify class. When our team faced difficulties, we brainstormed for solutions and sought help from the TA, which ultimately led to resolving the issues with that class.
+Our team holds problem-solving meetings when issues arise during the development process. We hold Zoom discussions to pinpoint the precise difficulties someone is experiencing before coming up with solutions. We turn to our TA for advice if we hit a snag and are unable to come up with a workable answer. This method of problem-solving is demonstrated in the Classify course. When our team ran into problems, we discussed potential solutions and asked the TA for assistance, which ultimately resulted in the problems with that class being resolved.
+
