@@ -113,15 +113,15 @@ class Icon():
         pass
         
     def iconPath(self, classification):
-        if classification == 'UMD Advisory':
+        if classification == 'advisory':
             icon = '/Users/lakshasenthilkumar/INST326/326finalUMDAdvisory.png'
-        elif classification == 'UMD COMMUNITY ALERT':
+        elif classification == 'community alert':
             icon = '/Users/lakshasenthilkumar/INST326/326finalUMDCommunityAlert.png'
-        elif classification == 'UMD ALERT Test':
+        elif classification == 'alert test':
             icon = '/Users/lakshasenthilkumar/INST326/326FinalAlertTest.png'
-        elif classification == "UMD Safety Notice":
+        elif classification == "safety notice":
             icon = '/Users/lakshasenthilkumar/INST326/326finalUMDSafetyNotice.png'
-        elif classification == 'UMD Community Notice':
+        elif classification == 'community notice':
             icon = '/Users/lakshasenthilkumar/INST326/326finalUMDCommunityNotice.png'
         else:
             return None
