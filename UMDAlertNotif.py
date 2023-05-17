@@ -1,5 +1,3 @@
-"""this is an example"""
-
 """
 import notify module 
 import OS
@@ -128,8 +126,9 @@ class Icon():
             return None
         
         return icon
+
 class Sound():
-    def __init__(self) -> None:
+    def __init__(self):
         self.advisory_sound = '/Users/jamalibrahim/Documents/GitHub/finalProject/Advisory.mp3'
         self.community_alert_sound = '/Users/jamalibrahim/Documents/GitHub/finalProject/CommunitySound.mp3'
         self.alert_test = '/Users/jamalibrahim/Documents/GitHub/finalProject/CommunitySound.mp3'
@@ -157,6 +156,7 @@ class Sound():
 
 if __name__ == "__main__":
     icon = Icon()
+    sound = Sound()
     for html in get_alert_pages():
         alerts = html_to_alert_list(html)
         for alert in alerts:
@@ -175,7 +175,6 @@ if __name__ == "__main__":
                 sound.play_safety_notice_sound()
             elif classification == 'community notice':
                 sound.play_community_notice_sound()
-
 
 
  
