@@ -141,7 +141,15 @@ class Icon():
         else:
             return None
         
+        
+   def test_Icon(self):
+        # Test that the icon path is returned correctly
+        icon = Icon()
+        self.assertEqual(icon.iconPath('advisory'), '/Users/lakshasenthilkumar/INST326/326finalUMDAdvisory.png')
+        
         return icon
+    
+
 
 class Sound():
     def __init__(self):
@@ -194,15 +202,3 @@ if __name__ == "__main__":
 
 
  
-# if __name__ == "__main__":
-    # for html in get_alert_pages():
-        # alerts = html_to_alert_list(html)
-        # for alert in alerts:
-            # print(alert)
-            
-            # createNotiObj = CreateNoti(alert)
-            # print(createNotiObj)
-            # AddTitle(alert, alert['title'])
-            # Classify(alert)
-            # Icon(alert)
-            # Sound(alert)
