@@ -142,7 +142,7 @@ class Icon():
             return None
         
         
-   def test_Icon(self):
+    def test_Icon(self):
         # Test that the icon path is returned correctly
         icon = Icon()
         self.assertEqual(icon.iconPath('advisory'), '/Users/lakshasenthilkumar/INST326/326finalUMDAdvisory.png')
